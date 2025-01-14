@@ -27,16 +27,16 @@ import {
   Fab,
   Tooltip,
   Zoom,
-  Snackbar
+  Snackbar,
+  useTheme,
+  useMediaQuery
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ClearIcon from '@mui/icons-material/Clear';
-
 import SearchIcon from '@mui/icons-material/Search';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -452,6 +452,9 @@ const initialRecipes = [
 const allCategories = [...new Set(initialRecipes.flatMap(recipe => recipe.categories))].sort();
 
 function App() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  
   // Estados
   const [recipes, setRecipes] = useState(() => {
     const saved = localStorage.getItem('recipes');
@@ -637,23 +640,21 @@ function App() {
   return (
     <Box sx={{ display: 'flex' }}>
       <Box
+        component="main"
         sx={{
+          flexGrow: 1,
           width: '100%',
           maxWidth: { xs: '100%', md: 'calc(100% - 320px)' },
-          mr: { md: '320px' },
+          ml: { xs: 0, md: 0 },
+          mr: { xs: 0, md: '320px' },
+          transition: 'all 0.3s ease',
         }}
       >
         <Container 
           maxWidth="lg" 
           sx={{ 
             py: { xs: 2, sm: 4 },
-            width: '100%',
-            maxWidth: { 
-              xs: '100%', 
-              md: 'calc(100% - 320px)' 
-            },
-            pl: { xs: 1, sm: 2, md: 3 },
-            pr: { xs: 1, sm: 2, md: 3 },
+            px: { xs: 2, sm: 3 },
           }}
         >
           <Typography 

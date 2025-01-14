@@ -8,7 +8,9 @@ import {
   Fab,
   Tooltip,
   Avatar,
-  Divider
+  Divider,
+  useTheme,
+  useMediaQuery
 } from '@mui/material';
 import MoodIcon from '@mui/icons-material/Mood';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -17,6 +19,8 @@ import NoFavorites from './NoFavorites';
 import FavoriteRecipeItem from './FavoriteRecipeItem';
 
 const FavoritesSidebar = ({ favorites, recipes, onRemove, onRecipeClick, onMoodQuizClick }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [isExpanded, setIsExpanded] = useState(true);
   
   // Memoizando a lista de receitas favoritas
@@ -124,16 +128,20 @@ const FavoritesSidebar = ({ favorites, recipes, onRemove, onRecipeClick, onMoodQ
     borderRadius: 0,
     display: { xs: 'none', md: 'flex' },
     flexDirection: 'column',
-    bgcolor: 'grey.50',
+    bgcolor: 'background.paper',
     borderLeft: '1px solid',
     borderColor: 'grey.200',
-    transition: 'all 0.3s ease',
-    zIndex: 1200,
-    overflow: 'hidden'
+    transition: 'width 0.3s ease',
+    zIndex: theme.zIndex.drawer,
+    overflow: 'hidden',
+    boxShadow: '0 0 10px rgba(0,0,0,0.05)'
   }), [isExpanded]);
 
   return (
-    <Paper sx={containerStyles}>
+    <Paper 
+      elevation={0}
+      sx={containerStyles}
+    >
       <IconButton
         onClick={handleToggleExpand}
         sx={{
@@ -147,7 +155,7 @@ const FavoritesSidebar = ({ favorites, recipes, onRemove, onRecipeClick, onMoodQ
           '&:hover': {
             bgcolor: 'grey.100',
           },
-          zIndex: 1
+          zIndex: theme.zIndex.drawer + 1
         }}
       >
         {isExpanded ? <ChevronRightIcon /> : <ChevronLeftIcon />}
