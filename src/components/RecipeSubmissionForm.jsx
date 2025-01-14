@@ -1,203 +1,250 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
-  Button,
   TextField,
+  Button,
   Box,
-  IconButton,
-  Typography,
   Chip,
-  Stack,
-  Autocomplete
+  Typography,
+  CircularProgress,
+  Alert
 } from '@mui/material';
-import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
-import CloseIcon from '@mui/icons-material/Close';
+import { generateRecipeImage } from '../services/imageGenerationService';
 
 const RecipeSubmissionForm = ({ open, onClose, onSubmit, allCategories }) => {
-  const [formData, setFormData] = useState({
+  const [recipe, setRecipe] = useState({
     name: '',
     ingredients: '',
     instructions: '',
     categories: [],
-    image: null
+    image: ''
   });
-  const fileInputRef = useRef(null);
+  const [isGeneratingImage, setIsGeneratingImage] = useState(false);
+  const [error, setError] = useState('');
+  const [imageStatus, setImageStatus] = useState('');
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+  const handleChange = (field) => (event) => {
+    setRecipe({ ...recipe, [field]: event.target.value });
   };
 
-  const handleImageSelect = (e) => {
-    const file = e.target.files[0];
-    if (file && file.type.startsWith('image/')) {
-      setFormData(prev => ({ ...prev, image: file }));
+  const handleCategoryToggle = (category) => {
+    setRecipe(prev => ({
+      ...prev,
+      categories: prev.categories.includes(category)
+        ? prev.categories.filter(c => c !== category)
+        : [...prev.categories, category]
+    }));
+  };
+
+  const handleGenerateImage = async () => {
+    if (!recipe.name || !recipe.ingredients || !recipe.instructions) {
+      setError('Preencha todos os campos antes de gerar a imagem');
+      return;
     }
-  };
 
-  const handleRemoveImage = () => {
-    setFormData(prev => ({ ...prev, image: null }));
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+    setIsGeneratingImage(true);
+    setError('');
+    setImageStatus('Gerando imagem...');
+
+    try {
+      const imageUrl = await generateRecipeImage({
+        ...recipe,
+        ingredients: recipe.ingredients.split(',').map(i => i.trim())
+      });
+
+      if (imageUrl) {
+        setRecipe(prev => ({ ...prev, image: imageUrl }));
+        setImageStatus('Imagem gerada com sucesso!');
+      } else {
+        setError('Não foi possível gerar a imagem. Tente novamente.');
+        setImageStatus('');
+      }
+    } catch (err) {
+      setError('Erro ao gerar imagem: ' + err.message);
+      setImageStatus('');
+    } finally {
+      setIsGeneratingImage(false);
     }
   };
 
   const handleSubmit = () => {
-    // Aqui você pode adicionar validação
+    if (!recipe.name || !recipe.ingredients || !recipe.instructions || recipe.categories.length === 0) {
+      setError('Preencha todos os campos obrigatórios');
+      return;
+    }
+
     onSubmit({
-      ...formData,
-      id: Date.now(), // ID temporário
-      ingredients: formData.ingredients.split(',').map(i => i.trim()),
-      image: formData.image ? URL.createObjectURL(formData.image) : ''
+      ...recipe,
+      ingredients: recipe.ingredients.split(',').map(i => i.trim())
     });
-    onClose();
-    setFormData({
+    
+    setRecipe({
       name: '',
       ingredients: '',
       instructions: '',
       categories: [],
-      image: null
+      image: ''
     });
+    onClose();
   };
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Adicionar Nova Receita</DialogTitle>
+      <DialogTitle>Cadastrar Nova Receita</DialogTitle>
       <DialogContent>
-        <Box sx={{ mt: 2 }}>
-          {/* Área de upload de imagem */}
-          <Box
-            sx={{
-              position: 'relative',
-              border: '2px dashed',
-              borderColor: 'grey.300',
-              borderRadius: 2,
-              p: 3,
-              textAlign: 'center',
-              cursor: 'pointer',
-              mb: 3,
-              '&:hover': {
-                borderColor: 'primary.main'
-              }
-            }}
-            onClick={() => !formData.image && fileInputRef.current?.click()}
-          >
-            {formData.image ? (
-              <Box sx={{ position: 'relative' }}>
-                <img
-                  src={URL.createObjectURL(formData.image)}
-                  alt="Preview"
-                  style={{ 
-                    maxWidth: '100%', 
-                    maxHeight: '200px', 
-                    objectFit: 'contain' 
-                  }}
-                />
-                {/* Botão de remoção sobreposto */}
-                <IconButton
-                  sx={{
-                    position: 'absolute',
-                    top: -12,
-                    right: -12,
-                    bgcolor: 'error.main',
-                    color: 'white',
-                    '&:hover': {
-                      bgcolor: 'error.dark'
-                    },
-                    boxShadow: 2
-                  }}
-                  size="small"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleRemoveImage();
-                  }}
-                >
-                  <CloseIcon fontSize="small" />
-                </IconButton>
-              </Box>
-            ) : (
-              <>
-                <AddAPhotoIcon sx={{ fontSize: 48, color: 'grey.400', mb: 1 }} />
-                <Typography>
-                  Clique para adicionar uma foto
-                </Typography>
-              </>
-            )}
-            <input
-              type="file"
-              hidden
-              ref={fileInputRef}
-              accept="image/*"
-              onChange={handleImageSelect}
-            />
-          </Box>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
 
-          {/* Campos do formulário */}
           <TextField
-            fullWidth
             label="Nome da Receita"
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            margin="normal"
-          />
-          <TextField
+            value={recipe.name}
+            onChange={handleChange('name')}
             fullWidth
+            required
+          />
+
+          <TextField
             label="Ingredientes (separados por vírgula)"
-            name="ingredients"
-            value={formData.ingredients}
-            onChange={handleInputChange}
-            margin="normal"
+            value={recipe.ingredients}
+            onChange={handleChange('ingredients')}
+            fullWidth
             multiline
             rows={3}
+            required
           />
+
           <TextField
+            label="Modo de Preparo"
+            value={recipe.instructions}
+            onChange={handleChange('instructions')}
             fullWidth
-            label="Instruções"
-            name="instructions"
-            value={formData.instructions}
-            onChange={handleInputChange}
-            margin="normal"
             multiline
             rows={4}
+            required
           />
-          <Autocomplete
-            multiple
-            options={allCategories}
-            value={formData.categories}
-            onChange={(_, newValue) => {
-              setFormData(prev => ({ ...prev, categories: newValue }));
-            }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Categorias"
-                margin="normal"
-              />
-            )}
-            renderTags={(value, getTagProps) =>
-              value.map((option, index) => (
+
+          <Box>
+            <Typography variant="subtitle2" gutterBottom>
+              Categorias
+            </Typography>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+              {allCategories.map((category) => (
                 <Chip
-                  label={option}
-                  {...getTagProps({ index })}
-                  key={option}
+                  key={category}
+                  label={category}
+                  onClick={() => handleCategoryToggle(category)}
+                  color={recipe.categories.includes(category) ? "primary" : "default"}
+                  variant={recipe.categories.includes(category) ? "filled" : "outlined"}
                 />
-              ))
-            }
-          />
+              ))}
+            </Box>
+          </Box>
+
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
+            <Button
+              variant="outlined"
+              onClick={handleGenerateImage}
+              disabled={isGeneratingImage}
+              startIcon={isGeneratingImage ? <CircularProgress size={20} /> : null}
+            >
+              {isGeneratingImage ? 'Gerando Imagem...' : recipe.image ? 'Gerar Nova Imagem' : 'Gerar Imagem com IA'}
+            </Button>
+            {imageStatus && (
+              <Typography 
+                variant="body2" 
+                color={error ? "error.main" : "success.main"}
+                sx={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: 1,
+                  animation: error ? 'none' : 'fadeIn 0.5s ease-in'
+                }}
+              >
+                {error ? '❌' : '✓'} {imageStatus}
+                {recipe.image && !isGeneratingImage && !error && (
+                  <Button
+                    size="small"
+                    onClick={handleGenerateImage}
+                    disabled={isGeneratingImage}
+                    sx={{ minWidth: 'auto', p: 0.5 }}
+                  >
+                    🔄
+                  </Button>
+                )}
+              </Typography>
+            )}
+          </Box>
+
+          {recipe.image && (
+            <Box 
+              sx={{ 
+                mt: 2, 
+                position: 'relative',
+                '&::after': error ? {
+                  content: '""',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                  borderRadius: 2
+                } : {}
+              }}
+            >
+              <img
+                src={recipe.image}
+                alt={recipe.name}
+                style={{
+                  width: '100%',
+                  height: 250,
+                  objectFit: 'cover',
+                  borderRadius: 8
+                }}
+                onError={() => {
+                  setError('A imagem não pode ser carregada. Tente gerar novamente.');
+                  setImageStatus('');
+                }}
+              />
+              <Box 
+                sx={{ 
+                  position: 'absolute',
+                  bottom: 8,
+                  right: 8,
+                  bgcolor: 'rgba(0,0,0,0.6)',
+                  borderRadius: 1,
+                  p: 0.5
+                }}
+              >
+                <Button
+                  size="small"
+                  variant="contained"
+                  onClick={handleGenerateImage}
+                  disabled={isGeneratingImage}
+                  sx={{ minWidth: 'auto', p: 1 }}
+                >
+                  {isGeneratingImage ? <CircularProgress size={20} /> : '🔄 Nova Imagem'}
+                </Button>
+              </Box>
+            </Box>
+          )}
         </Box>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancelar</Button>
         <Button 
-          variant="contained" 
           onClick={handleSubmit}
-          disabled={!formData.name || !formData.ingredients || !formData.instructions}
+          variant="contained"
+          disabled={isGeneratingImage}
         >
-          Adicionar Receita
+          Cadastrar Receita
         </Button>
       </DialogActions>
     </Dialog>

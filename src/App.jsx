@@ -229,7 +229,7 @@ const initialRecipes = [
     categories: ['Buddha Bowl', 'Vegetariana', 'Saudável'],
     ingredients: ['quinoa', 'grão de bico', 'abacate', 'espinafre', 'cenoura', 'beterraba', 'tahine'],
     instructions: 'Cozinhe a quinoa. Prepare os vegetais. Monte a tigela em seções. Finalize com molho de tahine.',
-    image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
+    image: 'https://images.unsplash.com/photo-1540914124281-342587941389?ixlib=rb-4.0.3&auto=format&fit=crop&w=1771&q=80',
   },
   {
     id: 22,
@@ -285,7 +285,7 @@ const initialRecipes = [
     categories: ['Wrap', 'Principal', 'Bacon'],
     ingredients: ['tortilla', 'peito de frango', 'bacon', 'alface', 'tomate', 'maionese', 'queijo'],
     instructions: 'Grelhe o frango e frite o bacon. Monte o wrap com os ingredientes e enrole.',
-    image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1769&q=80',
+    image: 'https://images.unsplash.com/photo-1631898039984-fd5f61fe8732?ixlib=rb-4.0.3&auto=format&fit=crop&w=1772&q=80',
   },
   {
     id: 29,
@@ -381,7 +381,7 @@ const initialRecipes = [
     categories: ['Vegetariana', 'Principal'],
     ingredients: ['cogumelos', 'creme de leite', 'cebola', 'alho', 'mostarda', 'ketchup', 'batata palha'],
     instructions: 'Refogue os cogumelos com cebola e alho. Adicione creme de leite e temperos. Sirva com batata palha.',
-    image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
+    image: 'https://images.unsplash.com/photo-1635321593200-c4ad7d006f6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1771&q=80',
   },
   {
     id: 41,
