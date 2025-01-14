@@ -60,6 +60,7 @@ import StarIcon from '@mui/icons-material/Star';
 import MoodIcon from '@mui/icons-material/Mood';
 import MoodQuiz from './components/MoodQuiz';
 import ShareIcon from '@mui/icons-material/Share';
+import AdUnit from './components/AdUnit';
 
 const initialRecipes = [
   {
@@ -645,32 +646,59 @@ function App() {
         <Container 
           maxWidth="lg" 
           sx={{ 
-            py: 4,
+            py: { xs: 2, sm: 4 },
             width: '100%',
             maxWidth: { 
               xs: '100%', 
               md: 'calc(100% - 320px)' 
             },
-            pl: { xs: 2, md: 3 },
-            pr: { xs: 2, md: 3 },
+            pl: { xs: 1, sm: 2, md: 3 },
+            pr: { xs: 1, sm: 2, md: 3 },
           }}
         >
-          <Typography variant="h3" component="h1" gutterBottom align="center">
+          <Typography 
+            variant="h3" 
+            component="h1" 
+            gutterBottom 
+            align="center"
+            sx={{
+              fontSize: { xs: '1.75rem', sm: '2.5rem', md: '3rem' },
+              mb: { xs: 2, sm: 4 }
+            }}
+          >
             Encontre Receitas Personalizadas
           </Typography>
 
-          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+          <AdUnit slot="1234567890" format="horizontal" />
+
+          <Box sx={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            mb: { xs: 2, sm: 4 },
+            flexDirection: { xs: 'column', sm: 'row' },
+            gap: 2,
+            px: { xs: 2, sm: 0 }
+          }}>
             <Button
               variant="contained"
               startIcon={<AddCircleIcon />}
               onClick={() => setIsSubmissionFormOpen(true)}
               size="large"
+              fullWidth={isMobile}
+              sx={{
+                borderRadius: { xs: '12px', sm: '8px' },
+                py: { xs: 1.5, sm: 1 }
+              }}
             >
               Cadastrar Nova Receita
             </Button>
           </Box>
 
-          <Paper sx={{ p: 3, mb: 4 }}>
+          <Paper sx={{ 
+            p: { xs: 2, sm: 3 }, 
+            mb: { xs: 2, sm: 4 },
+            borderRadius: { xs: 2, sm: 3 }
+          }}>
             <Typography variant="h6" gutterBottom>
               Insira seus ingredientes (separados por vírgula):
             </Typography>
@@ -785,7 +813,12 @@ function App() {
             </Button>
           </Paper>
 
-          <Grid container spacing={3}>
+          <Grid container spacing={{ xs: 2, sm: 3 }}>
+            {filteredRecipes.length > 0 && filteredRecipes.length % 6 === 0 && (
+              <Grid item xs={12}>
+                <AdUnit slot="0987654321" format="horizontal" />
+              </Grid>
+            )}
             {filteredRecipes.map((recipe) => (
               <Grid item xs={12} sm={6} md={4} key={recipe.id}>
                 <Card 
@@ -794,22 +827,33 @@ function App() {
                     display: 'flex',
                     flexDirection: 'column',
                     cursor: 'pointer',
-                    borderRadius: '16px',
+                    borderRadius: { xs: '12px', sm: '16px' },
                     overflow: 'hidden',
                     background: 'rgba(255, 255, 255, 0.9)',
                     backdropFilter: 'blur(10px)',
                     border: '1px solid rgba(255, 255, 255, 0.3)',
-                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+                    boxShadow: { 
+                      xs: '0 4px 16px rgba(0, 0, 0, 0.1)',
+                      sm: '0 8px 32px rgba(0, 0, 0, 0.1)'
+                    },
                     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                    transform: 'perspective(1000px) rotateX(0deg)',
                     '&:hover': {
-                      transform: 'perspective(1000px) rotateX(2deg) translateY(-8px)',
-                      boxShadow: '0 20px 40px rgba(0, 0, 0, 0.2)',
+                      transform: { 
+                        xs: 'translateY(-4px)',
+                        sm: 'perspective(1000px) rotateX(2deg) translateY(-8px)'
+                      },
+                      boxShadow: { 
+                        xs: '0 8px 24px rgba(0, 0, 0, 0.15)',
+                        sm: '0 20px 40px rgba(0, 0, 0, 0.2)'
+                      },
                     }
                   }}
                   onClick={() => openModal(recipe)}
                 >
-                  <Box sx={{ position: 'relative', height: '180px' }}>
+                  <Box sx={{ 
+                    position: 'relative', 
+                    height: { xs: '200px', sm: '180px' }
+                  }}>
                     <CardMedia
                       component="img"
                       image={recipe.image}
@@ -1028,12 +1072,12 @@ function App() {
             fullWidth
             PaperProps={{
               sx: {
-                borderRadius: 4,
+                borderRadius: { xs: 0, sm: 4 },
                 background: '#fff',
                 overflow: 'hidden',
-                maxHeight: '90vh',
-                display: 'flex',
-                flexDirection: 'column'
+                height: { xs: '100%', sm: 'auto' },
+                maxHeight: { xs: '100%', sm: '90vh' },
+                m: { xs: 0, sm: 2 }
               }
             }}
           >
@@ -1041,22 +1085,22 @@ function App() {
               <Box sx={{ 
                 display: 'flex', 
                 flexDirection: { xs: 'column', md: 'row' },
-                height: '100%',
-                maxHeight: '90vh'
+                height: '100%'
               }}>
                 {/* Lado Esquerdo - Imagem e Informações Básicas */}
                 <Box sx={{ 
                   width: { xs: '100%', md: '45%' },
                   position: 'relative',
                   bgcolor: '#000',
-                  height: { xs: '300px', md: 'auto' }
+                  height: { xs: '35vh', md: 'auto' },
+                  minHeight: { xs: '250px', md: 'auto' }
                 }}>
                   <CardMedia
                     component="img"
                     image={selectedRecipe.image}
                     alt={selectedRecipe.name}
                     sx={{
-                      height: { xs: '300px', md: '100%' },
+                      height: '100%',
                       objectFit: 'cover',
                       opacity: 0.85
                     }}
@@ -1069,7 +1113,7 @@ function App() {
                       left: 0,
                       right: 0,
                       bottom: 0,
-                      p: 4,
+                      p: { xs: 2, sm: 4 },
                       display: 'flex',
                       flexDirection: 'column',
                       justifyContent: 'flex-end',
@@ -1081,30 +1125,57 @@ function App() {
                       sx={{
                         color: '#fff',
                         fontWeight: 800,
-                        fontSize: { xs: '1.75rem', md: '2.5rem' },
-                        mb: 2,
+                        fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2.5rem' },
+                        mb: { xs: 1, sm: 2 },
                         textShadow: '0 2px 4px rgba(0,0,0,0.3)'
                       }}
                     >
                       {selectedRecipe.name}
                     </Typography>
 
-                    <Stack direction="row" spacing={3} sx={{ color: 'white', mb: 2 }}>
+                    <Stack 
+                      direction="row" 
+                      spacing={{ xs: 2, sm: 3 }} 
+                      sx={{ 
+                        color: 'white', 
+                        mb: { xs: 1, sm: 2 }
+                      }}
+                    >
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <KitchenIcon sx={{ fontSize: '1.2rem' }} />
-                        <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                        <KitchenIcon sx={{ fontSize: { xs: '1rem', sm: '1.2rem' } }} />
+                        <Typography 
+                          variant="body2" 
+                          sx={{ 
+                            fontWeight: 500,
+                            fontSize: { xs: '0.8rem', sm: '0.875rem' }
+                          }}
+                        >
                           {selectedRecipe.ingredients.length} ingredientes
                         </Typography>
                       </Box>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <AccessTimeIcon sx={{ fontSize: '1.2rem' }} />
-                        <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                        <AccessTimeIcon sx={{ fontSize: { xs: '1rem', sm: '1.2rem' } }} />
+                        <Typography 
+                          variant="body2" 
+                          sx={{ 
+                            fontWeight: 500,
+                            fontSize: { xs: '0.8rem', sm: '0.875rem' }
+                          }}
+                        >
                           30 min
                         </Typography>
                       </Box>
                     </Stack>
 
-                    <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1 }}>
+                    <Stack 
+                      direction="row" 
+                      spacing={1} 
+                      sx={{ 
+                        flexWrap: 'wrap', 
+                        gap: 0.5,
+                        display: { xs: 'none', sm: 'flex' }
+                      }}
+                    >
                       {selectedRecipe.categories.map((category) => (
                         <Chip
                           key={category}
@@ -1114,7 +1185,10 @@ function App() {
                             bgcolor: 'rgba(255,255,255,0.15)',
                             color: 'white',
                             backdropFilter: 'blur(4px)',
-                            '& .MuiChip-label': { fontWeight: 500 }
+                            '& .MuiChip-label': { 
+                              fontWeight: 500,
+                              fontSize: { xs: '0.7rem', sm: '0.75rem' }
+                            }
                           }}
                         />
                       ))}
@@ -1125,17 +1199,18 @@ function App() {
                     onClick={closeModal}
                     sx={{
                       position: 'absolute',
-                      right: 16,
-                      top: 16,
+                      right: 8,
+                      top: 8,
                       color: 'white',
                       bgcolor: 'rgba(0,0,0,0.5)',
                       backdropFilter: 'blur(4px)',
+                      padding: { xs: 1, sm: 1.5 },
                       '&:hover': {
                         bgcolor: 'rgba(0,0,0,0.7)',
                       }
                     }}
                   >
-                    <CloseIcon />
+                    <CloseIcon sx={{ fontSize: { xs: '1.2rem', sm: '1.5rem' } }} />
                   </IconButton>
                 </Box>
 
@@ -1144,17 +1219,38 @@ function App() {
                   width: { xs: '100%', md: '55%' },
                   display: 'flex',
                   flexDirection: 'column',
-                  height: { xs: 'auto', md: '100%' },
-                  maxHeight: '90vh'
+                  height: { xs: 'calc(65vh - 56px)', md: 'auto' },
+                  overflow: 'hidden'
                 }}>
+                  {/* Categorias para mobile */}
+                  <Box sx={{ 
+                    display: { xs: 'flex', sm: 'none' },
+                    p: 2,
+                    pb: 1,
+                    gap: 0.5,
+                    flexWrap: 'wrap'
+                  }}>
+                    {selectedRecipe.categories.map((category) => (
+                      <Chip
+                        key={category}
+                        label={category}
+                        size="small"
+                        sx={{ 
+                          bgcolor: 'grey.100',
+                          fontSize: '0.7rem'
+                        }}
+                      />
+                    ))}
+                  </Box>
+
                   {/* Área scrollável */}
                   <Box 
                     sx={{ 
                       flex: 1,
                       overflowY: 'auto',
-                      p: 4,
+                      p: { xs: 2, sm: 4 },
                       '&::-webkit-scrollbar': {
-                        width: '8px',
+                        width: '4px',
                       },
                       '&::-webkit-scrollbar-track': {
                         bgcolor: 'grey.100',
@@ -1170,24 +1266,20 @@ function App() {
                     }}
                   >
                     {/* Seção de Ingredientes */}
-                    <Box sx={{ mb: 4 }}>
+                    <Box sx={{ mb: { xs: 3, sm: 4 } }}>
                       <Typography 
                         variant="h6" 
                         sx={{ 
-                          mb: 3,
+                          mb: { xs: 2, sm: 3 },
                           display: 'flex',
                           alignItems: 'center',
                           gap: 1,
                           color: 'primary.main',
                           fontWeight: 600,
-                          position: 'sticky',
-                          top: 0,
-                          bgcolor: 'background.paper',
-                          zIndex: 1,
-                          py: 1
+                          fontSize: { xs: '1.1rem', sm: '1.25rem' }
                         }}
                       >
-                        <KitchenIcon />
+                        <KitchenIcon sx={{ fontSize: { xs: '1.2rem', sm: '1.5rem' } }} />
                         Ingredientes
                       </Typography>
                       <Stack spacing={1}>
@@ -1197,8 +1289,8 @@ function App() {
                             sx={{
                               display: 'flex',
                               alignItems: 'center',
-                              gap: 2,
-                              p: 2,
+                              gap: 1.5,
+                              p: { xs: 1.5, sm: 2 },
                               borderRadius: 2,
                               bgcolor: 'grey.50',
                               '&:hover': {
@@ -1208,56 +1300,66 @@ function App() {
                               transition: 'all 0.2s ease'
                             }}
                           >
-                            <LocalDiningIcon sx={{ color: 'primary.main', opacity: 0.7 }} />
-                            <Typography>{ingredient}</Typography>
+                            <LocalDiningIcon 
+                              sx={{ 
+                                color: 'primary.main', 
+                                opacity: 0.7,
+                                fontSize: { xs: '1rem', sm: '1.25rem' }
+                              }} 
+                            />
+                            <Typography sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
+                              {ingredient}
+                            </Typography>
                           </Box>
                         ))}
                       </Stack>
                     </Box>
 
                     {/* Seção de Modo de Preparo */}
-                    <Box sx={{ mb: 4 }}>
+                    <Box sx={{ mb: { xs: 3, sm: 4 } }}>
                       <Typography 
                         variant="h6" 
                         sx={{ 
-                          mb: 3,
+                          mb: { xs: 2, sm: 3 },
                           display: 'flex',
                           alignItems: 'center',
                           gap: 1,
                           color: 'primary.main',
                           fontWeight: 600,
-                          position: 'sticky',
-                          top: 0,
-                          bgcolor: 'background.paper',
-                          zIndex: 1,
-                          py: 1
+                          fontSize: { xs: '1.1rem', sm: '1.25rem' }
                         }}
                       >
-                        <RestaurantIcon />
+                        <RestaurantIcon sx={{ fontSize: { xs: '1.2rem', sm: '1.5rem' } }} />
                         Modo de Preparo
                       </Typography>
                       <Paper 
                         elevation={0} 
                         sx={{ 
-                          p: 3, 
+                          p: { xs: 2, sm: 3 }, 
                           bgcolor: 'grey.50', 
                           borderRadius: 3,
                           whiteSpace: 'pre-line'
                         }}
                       >
-                        <Typography variant="body1" sx={{ lineHeight: 1.8 }}>
+                        <Typography 
+                          variant="body1" 
+                          sx={{ 
+                            lineHeight: 1.8,
+                            fontSize: { xs: '0.9rem', sm: '1rem' }
+                          }}
+                        >
                           {selectedRecipe.instructions}
                         </Typography>
                       </Paper>
                     </Box>
 
                     {/* Seção de Fotos */}
-                    <Box>
+                    <Box sx={{ mb: { xs: 2, sm: 3 } }}>
                       <Box sx={{ 
                         display: 'flex', 
                         alignItems: 'center', 
                         justifyContent: 'space-between',
-                        mb: 3 
+                        mb: { xs: 2, sm: 3 }
                       }}>
                         <Typography 
                           variant="h6" 
@@ -1266,10 +1368,11 @@ function App() {
                             alignItems: 'center',
                             gap: 1,
                             color: 'primary.main',
-                            fontWeight: 600
+                            fontWeight: 600,
+                            fontSize: { xs: '1.1rem', sm: '1.25rem' }
                           }}
                         >
-                          <ImageIcon />
+                          <ImageIcon sx={{ fontSize: { xs: '1.2rem', sm: '1.5rem' } }} />
                           Fotos da Comunidade
                         </Typography>
                         <Button
@@ -1277,18 +1380,20 @@ function App() {
                           onClick={() => setIsPhotoModalOpen(true)}
                           variant="outlined"
                           size="small"
+                          sx={{
+                            fontSize: { xs: '0.8rem', sm: '0.875rem' },
+                            py: { xs: 0.5, sm: 1 }
+                          }}
                         >
                           Adicionar Foto
                         </Button>
                       </Box>
-                      
-                      {/* Aqui vai o código das fotos da comunidade */}
                     </Box>
                   </Box>
 
                   {/* Footer fixo */}
                   <Box sx={{ 
-                    p: 3, 
+                    p: { xs: 2, sm: 3 }, 
                     borderTop: '1px solid',
                     borderColor: 'grey.200',
                     bgcolor: 'grey.50',
@@ -1301,9 +1406,10 @@ function App() {
                       color={favorites.includes(selectedRecipe.id) ? "error" : "primary"}
                       fullWidth
                       sx={{
-                        py: 1.5,
+                        py: { xs: 1, sm: 1.5 },
                         borderRadius: 3,
                         boxShadow: 'none',
+                        fontSize: { xs: '0.9rem', sm: '1rem' },
                         '&:hover': {
                           boxShadow: 'none',
                           bgcolor: favorites.includes(selectedRecipe.id) ? 'error.dark' : 'primary.dark'
