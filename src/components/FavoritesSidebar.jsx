@@ -10,18 +10,24 @@ import {
   Avatar,
   Divider,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
+  Drawer,
+  SpeedDial,
+  SpeedDialIcon,
+  Badge
 } from '@mui/material';
 import MoodIcon from '@mui/icons-material/Mood';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import NoFavorites from './NoFavorites';
 import FavoriteRecipeItem from './FavoriteRecipeItem';
 
 const FavoritesSidebar = ({ favorites, recipes, onRemove, onRecipeClick, onMoodQuizClick }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [isExpanded, setIsExpanded] = useState(true);
+  const [mobileOpen, setMobileOpen] = useState(false);
   
   // Memoizando a lista de receitas favoritas
   const favoritedRecipes = useMemo(() => 
@@ -34,43 +40,39 @@ const FavoritesSidebar = ({ favorites, recipes, onRemove, onRecipeClick, onMoodQ
     setIsExpanded(prev => !prev);
   }, []);
 
+  const handleMobileToggle = useCallback(() => {
+    setMobileOpen(prev => !prev);
+  }, []);
+
   const handleRemove = useCallback((id) => {
     onRemove(id);
   }, [onRemove]);
 
   const handleRecipeClick = useCallback((recipe) => {
     onRecipeClick(recipe);
-  }, [onRecipeClick]);
+    if (isMobile) {
+      setMobileOpen(false);
+    }
+  }, [onRecipeClick, isMobile]);
 
-  // Memoizando o cabeçalho para evitar re-renderizações desnecessárias
-  const headerContent = useMemo(() => (
+  // Memoizando o conteúdo dos favoritos
+  const favoritesContent = useMemo(() => (
     <Box sx={{ 
-      p: isExpanded ? 3 : 1.5, 
-      display: 'flex', 
-      flexDirection: 'column', 
-      gap: 2, 
-      flexShrink: 0,
-      alignItems: isExpanded ? 'flex-start' : 'center'
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column'
     }}>
       <Box sx={{ 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: isExpanded ? 'space-between' : 'center',
-        width: '100%'
+        p: 3,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 2
       }}>
-        {isExpanded && (
-          <Typography 
-            variant="h6" 
-            sx={{ 
-              fontWeight: 600,
-              transition: 'opacity 0.2s',
-              whiteSpace: 'nowrap'
-            }}
-          >
-            Favoritos
-          </Typography>
-        )}
-        <Tooltip title="Descubra sua Receita Ideal" placement="left">
+        <Typography variant="h6" sx={{ fontWeight: 600 }}>
+          Favoritos ({favoritedRecipes.length})
+        </Typography>
+        <Tooltip title="Descubra sua Receita Ideal">
           <Fab
             size="small"
             onClick={onMoodQuizClick}
@@ -102,45 +104,110 @@ const FavoritesSidebar = ({ favorites, recipes, onRemove, onRecipeClick, onMoodQ
               }
             }}
           >
-            <MoodIcon sx={{ 
-              fontSize: '1.5rem',
-              animation: 'sparkle 1.5s infinite',
-              '@keyframes sparkle': {
-                '0%': { opacity: 1 },
-                '50%': { opacity: 0.7 },
-                '100%': { opacity: 1 }
-              }
-            }} />
+            <MoodIcon />
           </Fab>
         </Tooltip>
       </Box>
-      {isExpanded && <Divider sx={{ width: '100%' }} />}
+      <Divider />
+      <Box sx={{ 
+        flex: 1,
+        overflowY: 'auto',
+        '&::-webkit-scrollbar': {
+          width: '4px',
+        },
+        '&::-webkit-scrollbar-track': {
+          bgcolor: 'grey.100',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          bgcolor: 'grey.400',
+          borderRadius: '4px',
+        },
+      }}>
+        {favoritedRecipes.length === 0 ? (
+          <NoFavorites />
+        ) : (
+          <List>
+            {favoritedRecipes.map((recipe) => (
+              <FavoriteRecipeItem
+                key={recipe.id}
+                recipe={recipe}
+                onRemove={handleRemove}
+                onClick={handleRecipeClick}
+              />
+            ))}
+          </List>
+        )}
+      </Box>
     </Box>
-  ), [isExpanded, onMoodQuizClick]);
+  ), [favoritedRecipes, handleRemove, handleRecipeClick, onMoodQuizClick]);
 
-  // Memoizando os estilos do container para evitar recálculos
-  const containerStyles = useMemo(() => ({
-    position: 'fixed',
-    right: 0,
-    top: 0,
-    bottom: 0,
-    width: isExpanded ? 320 : 60,
-    borderRadius: 0,
-    display: { xs: 'none', md: 'flex' },
-    flexDirection: 'column',
-    bgcolor: 'background.paper',
-    borderLeft: '1px solid',
-    borderColor: 'grey.200',
-    transition: 'width 0.3s ease',
-    zIndex: theme.zIndex.drawer,
-    overflow: 'hidden',
-    boxShadow: '0 0 10px rgba(0,0,0,0.05)'
-  }), [isExpanded]);
+  // Renderização condicional baseada no dispositivo
+  if (isMobile) {
+    return (
+      <>
+        <SpeedDial
+          ariaLabel="Favoritos"
+          sx={{
+            position: 'fixed',
+            bottom: 16,
+            right: 16,
+            '& .MuiFab-primary': {
+              width: 56,
+              height: 56,
+              background: 'linear-gradient(45deg, #FF6B6B 30%, #FF8E53 90%)',
+              '&:hover': {
+                background: 'linear-gradient(45deg, #FF8E53 30%, #FF6B6B 90%)',
+              }
+            }
+          }}
+          icon={
+            <Badge badgeContent={favoritedRecipes.length} color="error" max={99}>
+              <FavoriteIcon />
+            </Badge>
+          }
+          onClick={handleMobileToggle}
+        />
+        <Drawer
+          anchor="right"
+          open={mobileOpen}
+          onClose={handleMobileToggle}
+          PaperProps={{
+            sx: {
+              width: '100%',
+              maxWidth: 360,
+              borderRadius: '16px 0 0 16px',
+              background: '#fff',
+              backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))',
+              boxShadow: '0 0 20px rgba(0, 0, 0, 0.1)'
+            }
+          }}
+        >
+          {favoritesContent}
+        </Drawer>
+      </>
+    );
+  }
 
   return (
     <Paper 
       elevation={0}
-      sx={containerStyles}
+      sx={{
+        position: 'fixed',
+        right: 0,
+        top: 0,
+        bottom: 0,
+        width: isExpanded ? 320 : 60,
+        borderRadius: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        bgcolor: 'background.paper',
+        borderLeft: '1px solid',
+        borderColor: 'grey.200',
+        transition: 'width 0.3s ease',
+        zIndex: theme.zIndex.drawer,
+        overflow: 'hidden',
+        boxShadow: '0 0 10px rgba(0,0,0,0.05)'
+      }}
     >
       <IconButton
         onClick={handleToggleExpand}
@@ -161,39 +228,7 @@ const FavoritesSidebar = ({ favorites, recipes, onRemove, onRecipeClick, onMoodQ
         {isExpanded ? <ChevronRightIcon /> : <ChevronLeftIcon />}
       </IconButton>
 
-      {headerContent}
-
-      {isExpanded ? (
-        <Box sx={{ 
-          flex: 1, 
-          overflowY: 'auto',
-          '&::-webkit-scrollbar': {
-            width: '4px',
-          },
-          '&::-webkit-scrollbar-track': {
-            bgcolor: 'grey.100',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            bgcolor: 'grey.400',
-            borderRadius: '4px',
-          },
-        }}>
-          {favoritedRecipes.length === 0 ? (
-            <NoFavorites />
-          ) : (
-            <List>
-              {favoritedRecipes.map((recipe) => (
-                <FavoriteRecipeItem
-                  key={recipe.id}
-                  recipe={recipe}
-                  onRemove={handleRemove}
-                  onClick={handleRecipeClick}
-                />
-              ))}
-            </List>
-          )}
-        </Box>
-      ) : (
+      {isExpanded ? favoritesContent : (
         <Box sx={{ 
           flex: 1,
           display: 'flex', 
