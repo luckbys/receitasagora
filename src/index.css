@@ -1,0 +1,66 @@
+:root {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.recipe-card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.ad-image {
+  width: 100%;
+  max-height: 180px;
+  object-fit: contain;
+}
+
+/* Estilos para o carrossel */
+.slick-track {
+  display: flex !important;
+}
+
+.slick-slide {
+  height: inherit !important;
+}
+
+.slick-slide > div {
+  height: 100%;
+}
+
+/* Ajuste para as setas de navegação */
+.slick-prev:before,
+.slick-next:before {
+  font-size: 24px !important;
+}
+
+.slick-prev {
+  left: -30px !important;
+}
+
+.slick-next {
+  right: -30px !important;
+}
+
+@media (max-width: 768px) {
+  .slick-prev {
+    left: -15px !important;
+  }
+  
+  .slick-next {
+    right: -15px !important;
+  }
+}
