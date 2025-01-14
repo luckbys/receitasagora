@@ -77,7 +77,7 @@ const initialRecipes = [
     categories: ['Frango', 'Mexido', 'Principal'],
     ingredients: ['peito de frango', 'molho de soja', 'brócolis', 'cenouras', 'gengibre'],
     instructions: 'Refogue o frango e os vegetais com molho de soja e gengibre.',
-    image: 'https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
+    image: 'https://images.unsplash.com/photo-1562967914-608f82629710?ixlib=rb-4.0.3&auto=format&fit=crop&w=1773&q=80',
   },
   {
     id: 3,
@@ -85,7 +85,7 @@ const initialRecipes = [
     categories: ['Sopa', 'Tomate', 'Principal'],
     ingredients: ['tomates', 'cebola', 'alho', 'caldo de legumes', 'manjericão'],
     instructions: 'Refogue a cebola e o alho. Adicione os tomates e o caldo. Cozinhe e misture. Decore com manjericão.',
-    image: 'https://images.unsplash.com/photo-1578020190125-f4f7c18bc9cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
+    image: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1771&q=80',
   },
   {
     id: 4,
@@ -93,7 +93,7 @@ const initialRecipes = [
     categories: ['Omelete', 'Principal'],
     ingredients: ['ovos', 'queijo', 'leite', 'sal', 'pimenta'],
     instructions: 'Bata os ovos com leite, sal e pimenta. Cozinhe em uma panela e adicione o queijo.',
-    image: 'https://images.unsplash.com/photo-1642484691674-c3801880daf5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
+    image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&auto=format&fit=crop&w=1771&q=80',
   },
   {
     id: 5,
@@ -101,7 +101,7 @@ const initialRecipes = [
     categories: ['Sanduíche', 'Queijo Quente', 'Principal'],
     ingredients: ['pão', 'queijo', 'manteiga'],
     instructions: 'Passe manteiga no pão. Coloque o queijo entre as fatias. Grelhe até dourar.',
-    image: 'https://images.unsplash.com/photo-1475090169767-40ed8d18f67d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-4.0.3&auto=format&fit=crop&w=1773&q=80',
   },
   {
     id: 6,
@@ -109,7 +109,7 @@ const initialRecipes = [
     categories: ['Purê', 'Batata', 'Principal'],
     ingredients: ['batatas', 'leite', 'manteiga', 'sal', 'pimenta'],
     instructions: 'Ferva as batatas. Amasse com leite, manteiga, sal e pimenta.',
-    image: 'https://images.unsplash.com/photo-1543198126-a8ad7655f77b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
+    image: 'https://images.unsplash.com/photo-1618852990080-bfe7ee6e4c2f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1771&q=80',
   },
   {
     id: 7,
@@ -117,7 +117,7 @@ const initialRecipes = [
     categories: ['Panquecas', 'Principal'],
     ingredients: ['farinha', 'leite', 'ovos', 'açúcar', 'fermento'],
     instructions: 'Misture todos os ingredientes. Cozinhe em uma chapa até dourar.',
-    image: 'https://images.unsplash.com/photo-1506084868230-bb9d95c2475d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
+    image: 'https://images.unsplash.com/photo-1565299543923-37dd37887442?ixlib=rb-4.0.3&auto=format&fit=crop&w=1781&q=80',
   },
   {
     id: 8,
@@ -125,7 +125,7 @@ const initialRecipes = [
     categories: ['Salada', 'Principal'],
     ingredients: ['alface', 'tomates', 'pepino', 'molho'],
     instructions: 'Combine todos os ingredientes e adicione o molho.',
-    image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&auto=format&fit=crop&w=1772&q=80',
+    image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
   },
   {
     id: 9,
@@ -133,7 +133,7 @@ const initialRecipes = [
     categories: ['Sanduíche', 'Pasta de Amendoim', 'Principal'],
     ingredients: ['pão', 'pasta de amendoim', 'geleia'],
     instructions: 'Espalhe pasta de amendoim e geleia nas fatias de pão. Combine.',
-    image: 'https://images.unsplash.com/photo-1519492868123-9c70abb2394b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
+    image: 'https://images.unsplash.com/photo-1557310717-d6bea9f36682?ixlib=rb-4.0.3&auto=format&fit=crop&w=1772&q=80',
   },
   {
     id: 10,
@@ -141,7 +141,7 @@ const initialRecipes = [
     categories: ['Quesadilla', 'Principal'],
     ingredients: ['tortilha', 'queijo'],
     instructions: 'Coloque o queijo na tortilha. Dobre e cozinhe até o queijo derreter.',
-    image: 'https://images.unsplash.com/photo-1628824851008-ec3ab4b45edf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
+    image: 'https://images.unsplash.com/photo-1618040996337-56904b7850b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1769&q=80',
   },
   {
     id: 11,
@@ -149,7 +149,7 @@ const initialRecipes = [
     categories: ['Salada', 'Caprese', 'Principal'],
     ingredients: ['tomate', 'mussarela de búfala', 'manjericão', 'azeite', 'sal'],
     instructions: 'Corte o tomate e a mussarela em fatias. Monte com manjericão e tempere com azeite e sal.',
-    image: 'https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1769&q=80',
+    image: 'https://images.unsplash.com/photo-1608897013039-887f21d8c804?ixlib=rb-4.0.3&auto=format&fit=crop&w=1772&q=80',
   },
   {
     id: 12,
@@ -165,7 +165,7 @@ const initialRecipes = [
     categories: ['Smoothie', 'Frutas Vermelhas', 'Principal'],
     ingredients: ['frutas vermelhas congeladas', 'iogurte', 'mel', 'leite'],
     instructions: 'Bata todos os ingredientes no liquidificador até obter uma mistura homogênea.',
-    image: 'https://images.unsplash.com/photo-1553530666-ba11a7da3888?ixlib=rb-4.0.3&auto=format&fit=crop&w=1771&q=80',
+    image: 'https://images.unsplash.com/photo-1610970881699-44a5587cabec?ixlib=rb-4.0.3&auto=format&fit=crop&w=1771&q=80',
   },
   {
     id: 14,
@@ -173,7 +173,7 @@ const initialRecipes = [
     categories: ['Risoto', 'Italiana', 'Principal'],
     ingredients: ['arroz arbóreo', 'cogumelos', 'cebola', 'vinho branco', 'caldo de legumes', 'queijo parmesão', 'manteiga'],
     instructions: 'Refogue a cebola, adicione o arroz e o vinho. Acrescente o caldo aos poucos, mexendo sempre. Finalize com cogumelos salteados e queijo.',
-    image: 'https://images.unsplash.com/photo-1667207393917-ae9aeade6da3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
+    image: 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
   },
   {
     id: 15,
@@ -181,7 +181,7 @@ const initialRecipes = [
     categories: ['Poke', 'Japonesa', 'Principal'],
     ingredients: ['arroz japonês', 'salmão fresco', 'abacate', 'pepino', 'cenoura', 'gergelim', 'molho shoyu'],
     instructions: 'Prepare o arroz. Corte o salmão em cubos. Monte a tigela com arroz, salmão e vegetais. Finalize com gergelim e molho.',
-    image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
+    image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1780&q=80',
   },
   {
     id: 16,
@@ -189,7 +189,7 @@ const initialRecipes = [
     categories: ['Tacos', 'Mexicana', 'Principal'],
     ingredients: ['tortillas de milho', 'carne moída', 'alface', 'tomate', 'cebola', 'queijo ralado', 'guacamole'],
     instructions: 'Tempere e cozinhe a carne. Aqueça as tortillas. Monte os tacos com carne e acompanhamentos.',
-    image: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
+    image: 'https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1771&q=80',
   },
   {
     id: 17,
@@ -197,7 +197,7 @@ const initialRecipes = [
     categories: ['Curry', 'Indiana', 'Vegetariana', 'Principal'],
     ingredients: ['grão de bico', 'leite de coco', 'curry em pó', 'tomate', 'cebola', 'alho', 'gengibre'],
     instructions: 'Refogue os aromáticos, adicione o curry e tomate. Acrescente o grão de bico e leite de coco. Cozinhe até engrossar.',
-    image: 'https://images.unsplash.com/photo-1631292784640-2b24be784d5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
+    image: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=1772&q=80',
   },
   {
     id: 18,
@@ -205,7 +205,7 @@ const initialRecipes = [
     categories: ['Bowl', 'Sobremesa', 'Café da Manhã'],
     ingredients: ['polpa de açaí', 'banana', 'granola', 'mel', 'morango', 'blueberry', 'coco ralado'],
     instructions: 'Bata o açaí com banana. Coloque em uma tigela e decore com frutas, granola e mel.',
-    image: 'https://images.unsplash.com/photo-1590301157898-4810ed352733?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
+    image: 'https://images.unsplash.com/photo-1581384601421-465d3e3b25a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1771&q=80',
   },
   {
     id: 19,
@@ -213,7 +213,7 @@ const initialRecipes = [
     categories: ['Pad Thai', 'Tailandesa', 'Principal'],
     ingredients: ['macarrão de arroz', 'camarão', 'broto de feijão', 'ovo', 'amendoim', 'limão', 'molho de peixe'],
     instructions: 'Cozinhe o macarrão. Frite camarão e ovo. Combine todos os ingredientes com o molho. Finalize com amendoim e limão.',
-    image: 'https://images.unsplash.com/photo-1626804475297-41608ea09aeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
+    image: 'https://images.unsplash.com/photo-1559314809-0d155014e29e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
   },
   {
     id: 20,
@@ -237,7 +237,7 @@ const initialRecipes = [
     categories: ['Ramen', 'Japonesa', 'Principal'],
     ingredients: ['macarrão ramen', 'caldo de frango', 'ovo cozido', 'carne de porco', 'cebolinha', 'broto de bambu', 'nori'],
     instructions: 'Prepare o caldo. Cozinhe o macarrão. Monte a tigela com caldo, macarrão e acompanhamentos.',
-    image: 'https://images.unsplash.com/photo-1569718201-2879521b49f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1780&q=80',
+    image: 'https://images.unsplash.com/photo-1614563637806-1d0e645e0940?ixlib=rb-4.0.3&auto=format&fit=crop&w=1773&q=80',
   },
   {
     id: 23,
@@ -253,7 +253,7 @@ const initialRecipes = [
     categories: ['Massa', 'Principal', 'Bacon'],
     ingredients: ['macarrão', 'bacon', 'brócolis', 'alho', 'azeite', 'parmesão', 'pimenta'],
     instructions: 'Cozinhe o macarrão. Frite o bacon até ficar crocante. Refogue o alho e brócolis. Misture tudo e finalize com queijo.',
-    image: 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
+    image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
   },
   {
     id: 25,
@@ -277,7 +277,7 @@ const initialRecipes = [
     categories: ['Quiche', 'Principal', 'Bacon'],
     ingredients: ['massa de torta', 'bacon', 'queijo', 'ovos', 'creme de leite', 'cebola', 'noz-moscada'],
     instructions: 'Forre a forma com a massa. Frite o bacon. Misture com os demais ingredientes. Asse até dourar.',
-    image: 'https://images.unsplash.com/photo-1559717201-2879521b49f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1771&q=80',
+    image: 'https://images.unsplash.com/photo-1559717865-a99cac1c95d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1771&q=80',
   },
   {
     id: 28,
@@ -293,7 +293,7 @@ const initialRecipes = [
     categories: ['Risoto', 'Principal', 'Bacon', 'Italiana'],
     ingredients: ['arroz arbóreo', 'bacon', 'cogumelos', 'cebola', 'vinho branco', 'caldo de legumes', 'parmesão'],
     instructions: 'Frite o bacon. Prepare o risoto normalmente, adicionando o bacon e cogumelos no final.',
-    image: 'https://images.unsplash.com/photo-1667207393917-ae9aeade6da3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
+    image: 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80',
   },
   {
     id: 30,
